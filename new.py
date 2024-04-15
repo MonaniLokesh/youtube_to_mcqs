@@ -19,7 +19,7 @@ prompt=ChatPromptTemplate.from_messages(
         ("user","Question:{question}")
     ]
 )
-## streamlit framework
+## streamlit framework to make it intractive
 
 st.title('Langchain Demo With LLAMA2 API')
 input_text=st.text_input("Search the topic you want")
