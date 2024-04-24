@@ -62,25 +62,17 @@ if st.button("Summarize"):
     summary = summarize_text(text_without_timestamps)
   
     # Ollama Integration for MCQ Generation
-    model = "mistral"  # Or any other Ollama model you prefer
-    message = summary  # Assuming `summary` holds the summarized text
-    # prompt_template = ChatPromptTemplate(messages=[message],  # Pass the message as a list
-                                    #  instruction="Can you generate 5 multiple choice questions based on the following summary?")
-
-
-
+    model = "llama2"  # Or any other Ollama model you prefer
+    message = summary  # Assuming summary holds the summarized text
     prompt_template = ChatPromptTemplate.from_messages( [
         ("system","You are a helpful assistant that generates 5 mcqs question based on "+ message),
-        # ("user","Question:{question}")
     ])
-
-
 
     message_dict = {"message": summary}  # Create a dictionary with the "message" key
     formatted_prompt = prompt_template.format_messages(summary=summary)
     ollama = ChatOllama(model=model)
-    mcqs = ollama(formatted_prompt)["content"]
-    # mcqs = ollama(formatted_prompt).text
+    response = ollama(formatted_prompt)
+    mcqs = response.content
   
     # Display the summarized text and MCQs
     st.header("Summarized Text:")
